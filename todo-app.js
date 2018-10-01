@@ -27,20 +27,19 @@ const todos = [{
 
 const renderTodos = function (todos, filters) {
   
-  let filteredTodos = todos.filter(function (todo) {
-    return todo.text.toLowerCase().includes(filters.searchText.toLowerCase()) 
+  const filteredTodos = todos.filter(function (todo) {
+    const searchTextMatch = todo.text.toLowerCase().includes(filters.searchText.toLowerCase())
+    const hideCompletedMatch = !filters.hideCompleted || !todo.completed
+            // the below is less elegant       
+            // if (filters.hideCompleted) {
+            //   return !todo.completed
+            // } else {
+            //   return true
+            // }
+    return searchTextMatch && hideCompletedMatch
   })
   
-  filteredTodos = filteredTodos.filter(function (todo) {
-    return !filters.hideCompleted || !todo.completed
-    // the below is less elegant
-    
-    // if (filters.hideCompleted) {
-    //   return !todo.completed
-    // } else {
-    //   return true
-    // }
-  }) 
+
 
   const pendingTodos = filteredTodos.filter(function (todo) {
     return (!todo.completed) 
