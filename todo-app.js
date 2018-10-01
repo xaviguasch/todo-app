@@ -68,14 +68,11 @@ document.querySelector('#search-input').addEventListener('input', function (e) {
 
 document.querySelector('#todo-form').addEventListener('submit', function (e) {
   e.preventDefault()
-  const newTodoObj = {
-    text: '',
+  todos.push({
+    text: e.target.elements.newTodo.value,
     completed: false
-  }
-  let newTodoFromForm = e.target.elements.newTodo.value  
-  newTodoObj.text = newTodoFromForm
+  })
   
-  todos.push(newTodoObj)
   
   localStorage.setItem('todos', JSON.stringify(todos))
 
