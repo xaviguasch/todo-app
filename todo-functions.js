@@ -1,3 +1,6 @@
+
+
+
 // Fetch existing todos from localStorage
 const getSavedTodos = function () {
 
@@ -13,6 +16,19 @@ const getSavedTodos = function () {
 // Save todos to localStorage
 const saveTodos = function (todos) {
    localStorage.setItem('todos', JSON.stringify(todos))
+}
+
+// Remove todo by id
+const removeTodo = function (id) {
+  const todoIndex = todos.findIndex(function (todo) {
+    return todo.id === id
+  })
+
+  if (todoIndex > -1) {
+    todos.splice(todoIndex, 1)
+  }
+
+
 }
 
 // Render application todos based on filters
@@ -63,6 +79,12 @@ const generateTodoDOM = function (todo) {
   // setup the bottom
   removeButton.textContent = 'x'
   todoEl.appendChild(removeButton)
+  removeButton.addEventListener('click', function () {
+    
+    removeTodo(todo.id)
+    saveTodos(todos)
+    renderTodos(todos, filters)
+  })
 
   return todoEl
 }
