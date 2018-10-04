@@ -28,7 +28,27 @@ const removeTodo = function (id) {
     todos.splice(todoIndex, 1)
   }
 
+}
 
+// Toggle the completed value for a given todo
+
+const toggleTodo = function (id) {
+  const todo = todos.find(function (todo) { // find() returns the whole object
+    return todo.id === id
+  })
+  
+  if (todo !== undefined) {
+    todo.completed = !todo.completed
+  }
+  
+  // alternative method using the findIndex which returns the index
+  // const todoIndex = todos.findIndex(function (todo) {
+  //   return (todo.id === id)
+  // })
+
+  // if (todoIndex > -1) {
+  //   todos[todoIndex].completed = !todos[todoIndex].completed    
+  // }
 }
 
 // Render application todos based on filters
@@ -61,6 +81,9 @@ const renderTodos = function (todos, filters) {
   })
 }
 
+
+
+
 // Get the DOM elements for an individual note
 const generateTodoDOM = function (todo) {
   const todoEl = document.createElement('div')
@@ -70,7 +93,17 @@ const generateTodoDOM = function (todo) {
 
   // setup todo checkbox
   checkbox.setAttribute('type', 'checkbox')
+  checkbox.checked = todo.completed
+
+  checkbox.addEventListener('change', function () {
+    toggleTodo(todo.id)
+    saveTodos(todos)
+    renderTodos(todos, filters)
+  })
+
   todoEl.appendChild(checkbox)
+
+
   
   // setup the todo text
   todoText.textContent = todo.text
