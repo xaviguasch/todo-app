@@ -9,7 +9,7 @@ const filters = {
 
 renderTodos(todos, filters);
 
-document.querySelector('#search-input').addEventListener('input', (e) => {
+document.querySelector('#search-text').addEventListener('input', (e) => {
   filters.searchText = e.target.value
   renderTodos(todos, filters)  
 })
