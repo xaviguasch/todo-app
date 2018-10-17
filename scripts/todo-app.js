@@ -14,16 +14,22 @@ document.querySelector('#search-text').addEventListener('input', (e) => {
   renderTodos(todos, filters)  
 })
 
-document.querySelector('#todo-form').addEventListener('submit', (e) => {
-  e.preventDefault()
-  todos.push({
-    id: uuidv4(),
-    text: e.target.elements.newTodo.value,
-    completed: false
-  })
-  saveTodos(todos)
-  renderTodos(todos, filters)
-  e.target.elements.newTodo.value = ''  
+document.querySelector('#new-todo').addEventListener('submit', (e) => {
+    const text = e.target.elements.text.value.trim()
+    e.preventDefault()
+  
+    if (text.length > 0) {
+        todos.push({
+            id: uuidv4(),
+            text,   // ES6 -> When the property and the value have the same name ( text: text,)
+            completed: false
+        })
+        saveTodos(todos)
+        renderTodos(todos, filters)
+        e.target.elements.text.value = ''  
+    }
+
+
 })
 
 document.querySelector('#hide-completed').addEventListener('change', (e) => {
